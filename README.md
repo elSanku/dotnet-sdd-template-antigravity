@@ -24,7 +24,8 @@ Este repositorio es el punto de partida estándar para nuevos proyectos en **.NE
 - **Datos:** Entity Framework Core (Code-First) sobre **SQL Server** (con `TimeProvider`, `HasConversion<string>()`, `CreateExecutionStrategy()`, `UPDLOCK, ROWLOCK` y cifrado Data Protection)
 - **Pruebas:** [xUnit](https://xunit.net/) (`FakeTimeProvider` en unitarias + **SQL Server real** en integración)
 
-### Seguridad y Cumplimiento (Ley 21.719 — Chile)
+## ⚖️ Seguridad y Cumplimiento
+### Ley 21.719 — Chile
 - **Cifrado en reposo:** `ValueConverter` con ASP.NET Core Data Protection (`DataProtectionKeys` en BD) para datos sensibles y payloads de correo.
 - **Privacidad desde el diseño:** Consentimiento versionado de Términos y Privacidad, redacción obligatoria de PII en logs (`****1234`) y flujo base de baja/anonimización de cuenta.
 - **Marco legal de referencia:** Si el proyecto trata datos sensibles o personales en Chile, documentar los lineamientos específicos en `docs/legal/` para que los agentes los validen antes de implementar.
@@ -52,6 +53,7 @@ dotnet-sdd-template-antigravity/
 │   ├── agents/                   # Roles SDD (coordinator, planner, implementer, reviewer)
 │   └── skills/                   # 30 skills curadas (.NET 10, EF Core, xUnit, SDD, Ponytail, Anti-UI Slop)
 ├── docs/
+│   ├── legal/                    # Marco legal y lineamientos de protección de datos (Ley 21.719)
 │   ├── constitution.md           # Principios técnicos innegociables del proyecto
 │   └── especificacion_tecnica_ia.md  # Plantilla SSOT (RN-xx, TR-xx, CA-xx, entidades, rutas, workers)
 ├── specs/
