@@ -1,29 +1,82 @@
-# Plantilla .NET 10 + SDD (`dotnet-sdd-template`)
+# Plantilla .NET 10 + SDD para Antigravity (`dotnet-sdd-template-antigravity`)
 
-Repositorio esqueleto para iniciar proyectos en **.NET 10 LTS** bajo metodología **Spec-Driven Development (SDD)**, disciplina **Ponytail**, diseño **Anti-UI Slop** y flujo multi-agente con modelos diferenciados.
+> **Esqueleto base para proyectos .NET 10 LTS en Google Antigravity**  
+> *Plantilla lista para clonar y arrancar aplicaciones monolíticas modulares (`.NET 10` / `EF Core` / `SQL Server` / `xUnit`) bajo metodología **Spec-Driven Development (SDD)**, disciplina **Ponytail** y diseño **Anti-UI Slop**.*
 
-## Qué incluye esta plantilla
+---
 
-* **`AGENTS.md`**: Reglas operativas del repositorio (stack, convenciones, concurrencia, marcas `//INI SPEC-XXX`, comandos y verificación).
-* **`MEMORY.md`**: Memoria corta de sesión para conservar estado entre conversaciones.
-* **`docs/constitution.md`**: Principios innegociables del proyecto.
-* **`docs/especificacion_tecnica_ia.md`**: Plantilla de Fuente Única de Verdad (SSOT) con IDs `RN-xx`, `TR-xx`, `CA-xx`, matriz de estados, modelo de datos, rutas, workers y fases `SPEC-001`…`SPEC-NNN`.
-* **`specs/001-ejemplo-base/`**: Ejemplo completo de `spec.md`, `plan.md` y `tasks.md` listo para usar como referencia.
-* **`.agents/agents/`**: 4 agentes SDD preconfigurados con su modelo óptimo:
-  * `coordinator.md` → **Gemini 4 Hydrogen** (`flash`)
-  * `planner.md` → **Gemini 4 Carbon** (`pro`)
-  * `implementer.md` → **Gemini 4 Hydrogen** (`flash`)
-  * `reviewer.md` → **Gemini 4 Carbon** (`pro`)
-  * *(Nota: **Gemini 4 Neon** / `flash_lite` queda recomendado para subagentes auxiliares de solo lectura, búsqueda o consulta de estado `/sdd-status`).*
-* **`.agents/skills/`**: 30 skills curadas para `.NET 10`, `Razor Pages + HTMX`, `EF Core`, `xUnit`, `Ponytail`, `Anti-UI Slop` y flujo `SDD`.
+## 🌟 Acerca de esta Plantilla
 
-## Cómo iniciar un nuevo proyecto (Checklist de 5 minutos)
+Este repositorio es el punto de partida estándar para nuevos proyectos en **.NET 10 LTS** asistidos por agentes autónomos en **Google Antigravity**, evitando copiar manualmente reglas, skills y documentación en cada inicio:
 
-1. **Copia esta carpeta** con el nombre de tu nuevo proyecto (ej. `mi-nuevo-proyecto`) e inicializa Git (`git init`).
-2. **Busca `[PERSONALIZAR]`** en todos los `.md` y reemplaza los placeholders (`<NOMBRE_PROYECTO>`, `<NamespaceBase>`, `<ZonaHoraria>`, etc.).
-3. **Define tu dominio en `docs/especificacion_tecnica_ia.md`**:
-   * Completa el Glosario, tus reglas `RN-xx`, transiciones `TR-xx`, entidades EF Core, rutas Razor Pages / APIs y el Plan por Fases (`SPEC-001`…).
-4. **Sincroniza `docs/constitution.md`, `AGENTS.md` y `MEMORY.md`** con las reglas fijas de tu nuevo proyecto.
-5. **Limpia el ejemplo y comienza SDD**:
-   * Elimina o archiva `specs/001-ejemplo-base/` cuando empieces tu primera spec real.
+- **SDD (Spec-Driven Development):** Flujo estructurado `Constitución → Spec → Clarificación → Plan → Tareas → Implementación → Validación`, con trazabilidad `RN-xx`, `TR-xx`, `CA-xx` y marcas `//INI SPEC-XXX` / `//FIN SPEC-XXX`.
+- **Ponytail:** Mínima complejidad necesaria, cero sobreingeniería y código conciso.
+- **Anti-UI Slop:** Interfaces sobrias, accesibles (WCAG AA), 100% en español y sin clichés visuales genéricos.
+
+---
+
+## 🚀 Stack Base Incluido
+
+### Backend, Web y Datos
+- **Runtime:** [.NET 10 LTS](https://dotnet.microsoft.com/) (`net10.0`)
+- **Web SSR:** ASP.NET Core **Razor Pages + HTMX** (con antiforgery global y parciales `_Partial.cshtml`)
+- **Estilos:** [Tailwind CSS](https://tailwindcss.com/)
+- **Datos:** Entity Framework Core (Code-First) sobre **SQL Server** (con `TimeProvider`, `HasConversion<string>()`, `CreateExecutionStrategy()`, `UPDLOCK, ROWLOCK` y cifrado Data Protection)
+- **Pruebas:** [xUnit](https://xunit.net/) (`FakeTimeProvider` en unitarias + **SQL Server real** en integración)
+
+---
+
+## 🤖 Agentes SDD y Modelos Gemini 4
+
+| Agente | Archivo | Modelo Recomendado | Responsabilidad principal |
+| :--- | :--- | :--- | :--- |
+| **Coordinator** | `.agents/agents/coordinator.md` | **Gemini 4 Hydrogen** (`flash`) | Orquesta fases SDD, transmite contexto y actualiza `MEMORY.md`. |
+| **Planner** | `.agents/agents/planner.md` | **Gemini 4 Carbon** (`pro`) | Redacta `spec.md`, `plan.md` y `tasks.md` verificando invariantes y dependencias. |
+| **Implementer** | `.agents/agents/implementer.md` | **Gemini 4 Hydrogen** (`flash`) | Ejecuta **una tarea atómica** a la vez y verifica `dotnet build` / `dotnet test`. |
+| **Reviewer** | `.agents/agents/reviewer.md` | **Gemini 4 Carbon** (`pro`) | Audita specs (`sdd-clarify`) y valida implementación/seguridad/QA (`sdd-validate`). |
+
+> **Tip:** Reserva **Gemini 4 Neon** (`flash_lite`) para subagentes auxiliares de solo lectura o diagnóstico rápido (ej. `/sdd-status` o búsqueda de referencias).
+
+---
+
+## 📂 Estructura del Repositorio
+
+```text
+dotnet-sdd-template-antigravity/
+├── .agents/
+│   ├── agents/                   # Roles SDD (coordinator, planner, implementer, reviewer)
+│   └── skills/                   # 30 skills curadas (.NET 10, EF Core, xUnit, SDD, Ponytail, Anti-UI Slop)
+├── docs/
+│   ├── constitution.md           # Principios técnicos innegociables del proyecto
+│   └── especificacion_tecnica_ia.md  # Plantilla SSOT (RN-xx, TR-xx, CA-xx, entidades, rutas, workers)
+├── specs/
+│   └── 001-ejemplo-base/         # Ejemplo completo de spec.md, plan.md y tasks.md
+├── AGENTS.md                     # Manual operativo para los agentes en Antigravity
+├── MEMORY.md                     # Memoria corta persistente entre sesiones
+├── .gitignore                    # Ignorados estándar .NET y secretos locales
+└── README.md
+```
+
+---
+
+## 🛠️ Cómo Iniciar un Proyecto Nuevo (5 minutos)
+
+1. **Crear repo desde esta plantilla** (botón **Use this template** en GitHub o `git clone`):
+   ```powershell
+   git clone https://github.com/elSanku/dotnet-sdd-template-antigravity.git mi-nuevo-proyecto
+   cd mi-nuevo-proyecto
+   ```
+2. **Personalizar placeholders:** Busca `[PERSONALIZAR]` en `AGENTS.md`, `MEMORY.md`, `docs/constitution.md` y `docs/especificacion_tecnica_ia.md`, y reemplaza `<NombreProyecto>`, `<NamespaceBase>` y tu dominio.
+3. **Definir el SSOT:** Completa `docs/especificacion_tecnica_ia.md` con tus reglas (`RN-xx`), transiciones (`TR-xx`), entidades EF Core y fases (`SPEC-001`…).
+4. **Limpiar el ejemplo y arrancar SDD:**
+   * Elimina o archiva `specs/001-ejemplo-base/` cuando inicies tu proyecto real.
    * Ejecuta `/sdd-spec 001-fundacion-bd-identidad` para redactar tu primera especificación.
+
+---
+
+## 👤 Autor
+
+**Felipe Bustamante Alcavil**  
+- **LinkedIn:** [felipe-bustamante-alcavil](https://linkedin.com/in/felipe-bustamante-alcavil)  
+- **GitHub:** [@elSanku](https://github.com/elSanku)  
+- **Email:** [felipebustamantealcavil@gmail.com](mailto:felipebustamantealcavil@gmail.com)  
