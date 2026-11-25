@@ -24,6 +24,11 @@ Este repositorio es el punto de partida estándar para nuevos proyectos en **.NE
 - **Datos:** Entity Framework Core (Code-First) sobre **SQL Server** (con `TimeProvider`, `HasConversion<string>()`, `CreateExecutionStrategy()`, `UPDLOCK, ROWLOCK` y cifrado Data Protection)
 - **Pruebas:** [xUnit](https://xunit.net/) (`FakeTimeProvider` en unitarias + **SQL Server real** en integración)
 
+### Seguridad y Cumplimiento (Ley 21.719 — Chile)
+- **Cifrado en reposo:** `ValueConverter` con ASP.NET Core Data Protection (`DataProtectionKeys` en BD) para datos sensibles y payloads de correo.
+- **Privacidad desde el diseño:** Consentimiento versionado de Términos y Privacidad, redacción obligatoria de PII en logs (`****1234`) y flujo base de baja/anonimización de cuenta.
+- **Marco legal de referencia:** Si el proyecto trata datos sensibles o personales en Chile, documentar los lineamientos específicos en `docs/legal/` para que los agentes los validen antes de implementar.
+
 ---
 
 ## 🤖 Agentes SDD y Modelos Gemini 4
