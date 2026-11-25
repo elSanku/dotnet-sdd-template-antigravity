@@ -1,0 +1,29 @@
+# .NET / Visual Studio / Rider / VS Code
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+*.binlog
+coverage/
+
+# Configuracion local y secretos (nunca versionar)
+appsettings.Development.json
+appsettings.*.local.json
+*.pfx
+*.key
+.env
+.env.*
+
+# Node / Tailwind build artifacts (si aplica)
+node_modules/
+
+# Logs y temporales
+logs/
+*.log
+*.tmp
